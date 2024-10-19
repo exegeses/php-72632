@@ -9,14 +9,47 @@
         $numero = $_POST['numero'];
         if ( $numero < 100 ){
             //Bloque de código a ejecutar si la condición es true
-            echo 'Es menor';
+            echo '<img src="imgs/ok.png">';
         }
         else{
             //Bloque de código a ejecutar si la condición es false
-            echo 'No es menor';
+            echo '<img src="imgs/error.png">';
         }
 ?>
         </section>
+
+        <section class="shadow alert my-3">
+<?php
+    if( $numero < 100 ){
+    ?>
+        <img src="imgs/ok.png">
+    <?php
+    }
+    else{
+    ?>
+        <img src="imgs/error.png">
+    <?php
+    }
+?>
+        </section>
+
+        <section class="shadow alert my-3">
+<?php
+    $im = 'error';
+    if( $numero < 100 ){
+        $im = 'ok';
+    }
+?>
+            <img src="imgs/<?php echo $im ?>.png">
+        </section>
+
+        <section class="shadow alert my-3">
+<?php
+    $im = ( $numero < 100 ) ? 'ok' : 'error';
+?>
+            <img src="imgs/<?php echo $im ?>.png">
+        </section>
+
 
     </main>
 <?php
