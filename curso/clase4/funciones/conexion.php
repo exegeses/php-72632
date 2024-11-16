@@ -1,7 +1,6 @@
 <?php
 
     ## función para conectar a server de MySQL
-
     const SERVER    = 'localhost';
     const USER      = 'root';
     const CLAVE     = 'root';
