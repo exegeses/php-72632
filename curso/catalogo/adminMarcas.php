@@ -14,13 +14,25 @@
             Volver a dashboard
         </a>
 
+<?php
+        if( isset( $_SESSION['mensaje'] ) ){
+?>        
+        <div class="alert alert-<?= $_SESSION['css'] ?>">
+            <i class="bi bi-info-circle fs-4 me-2"></i>
+            <?= $_SESSION['mensaje'] ?>
+        </div>
+<?php
+            unset($_SESSION['mensaje']);
+            unset($_SESSION['css']);
+        }
+?>
         <table class="table table-borderless table-striped table-hover">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Marca</th>
                     <th colspan="2">
-                        <a href="" class="btn btn-outline-secondary">
+                        <a href="formAgregarMarca.php" class="btn btn-outline-secondary">
                             Agregar
                         </a>
                     </th>
