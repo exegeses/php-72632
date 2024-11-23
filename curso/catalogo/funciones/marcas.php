@@ -40,6 +40,18 @@
         }
     }
 
+    function verMarcaPorID() : array
+    {
+        //Capturamos dato enviado en la URL
+        $idMarca = $_GET['idMarca'];
+        $link = conectar();
+        $sql = "SELECT * 
+                    FROM marcas
+                    WHERE idMarca = ".$idMarca;
+        $resultado = mysqli_query($link, $sql);
+        return mysqli_fetch_assoc($resultado);
+    }
+
 /**
  * listarMarcas()
  * verMarcaPorID()
