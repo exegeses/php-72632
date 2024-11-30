@@ -83,6 +83,12 @@
         }
     }
 
+    /**
+     * Función para verificar si una marca
+     * está relacionada a un producto
+     * @param $idMarca
+     * @return void
+     */
     function checkProductoXMarca( $idMarca ) : void
     {
         $link = conectar();
