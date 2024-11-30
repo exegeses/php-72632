@@ -14,18 +14,9 @@
             Volver a dashboard
         </a>
 
-<?php
-        if( isset( $_SESSION['mensaje'] ) ){
-?>        
-        <div class="alert alert-<?= $_SESSION['css'] ?>">
-            <i class="bi bi-info-circle fs-4 me-2"></i>
-            <?= $_SESSION['mensaje'] ?>
-        </div>
-<?php
-            unset($_SESSION['mensaje']);
-            unset($_SESSION['css']);
-        }
-?>
+<!-- notificaciones -->
+<?php  include 'layouts/notificaciones.php' ?>
+
         <table class="table table-borderless table-striped table-hover">
             <thead>
                 <tr>

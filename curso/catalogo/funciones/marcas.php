@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * función para obtener un listado de marcas
  * @return mysqli_result (listado de marcas)
@@ -50,6 +49,38 @@
                     WHERE idMarca = ".$idMarca;
         $resultado = mysqli_query($link, $sql);
         return mysqli_fetch_assoc($resultado);
+    }
+
+    function modificarMarca() : bool
+    {
+        //capturamos datos enviados por el formulario
+        $mkNombre = $_POST['mkNombre'];
+        $idMarca = $_POST['idMarca'];
+        // control de errores (try | catch)
+        try {
+            //conexion
+            $link = conectar();
+            //mensaje SQL
+            $sql = "UPDATE marcas
+                        SET mkNombre = '".$mkNombre."'
+                      WHERE idMarca = ".$idMarca;
+            $resultado = mysqli_query($link,$sql);
+            //notificación
+            $_SESSION['mensaje'] = 'Marca: '.$mkNombre.' modificada correctamente';
+            $_SESSION['css'] = 'success';
+            //redirección a adminMarcas con mensaje ok
+            header('location: adminMarcas.php');
+            return $resultado;
+        }catch ( Exception $e )
+        {
+            //log de errores
+            //notificación
+            $_SESSION['mensaje'] = 'No se pudo modificar la marca: '.$mkNombre;
+            $_SESSION['css'] = 'danger';
+            //redirección a adminMarcas con mensaje error
+            header('location: adminMarcas.php');
+            return false;
+        }
     }
 
 /**

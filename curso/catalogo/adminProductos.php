@@ -15,6 +15,10 @@
             Volver a dashboard
         </a>
 
+    <!-- notificaciones -->
+<?php  include 'layouts/notificaciones.php' ?>
+
+
         <table class="table table-borderless table-striped table-hover">
             <thead>
                 <tr>
