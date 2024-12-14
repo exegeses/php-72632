@@ -30,8 +30,15 @@
 
 function subirImagen() : string
 {
-    // si no se envió imagen
+    // si no se envió imagen agregar()
     $nombre = 'noDisponible.svg';
+
+    // si no se envió imagen modificar()
+    /*if( isset($_POST['imgActual']) ){
+        $nombre = $_POST['imgActual'];
+    }*/
+    # $nombre = ( isset($_POST['imgActual']) ) ? $_POST['imgActual'] : 'noDisponible.svg';
+    $nombre = $_POST['imgActual'] ?? 'noDisponible.svg';
 
     // IMAGEN ENVIADA
     if( $_FILES['prdImagen']['error']==0 ){
@@ -85,6 +92,60 @@ function agregarProducto() : bool
         return false;
     }
 
+}
+
+function verProductoPorID() : array
+{
+    $idProducto = $_GET['idProducto'];
+    $link = conectar();
+    $sql = 'SELECT idProducto, prdNombre, prdPrecio, prdDescripcion ,prdImagen,
+                         p.idMarca, mkNombre, 
+                         p.idCategoria, catNombre	
+                    FROM productos as p
+                    JOIN marcas as m
+                      ON p.idMarca = m.idMarca
+                    JOIN categorias as c
+                      ON p.idCategoria = c.idCategoria
+                    WHERE idProducto = '.$idProducto;
+    $resultado = mysqli_query($link, $sql);
+    return mysqli_fetch_assoc($resultado);
+}
+
+function modificarProducto() : bool
+{
+    $prdNombre = $_POST['prdNombre'];
+    $prdPrecio = $_POST['prdPrecio'];
+    $idMarca = $_POST['idMarca'];
+    $idCategoria = $_POST['idCategoria'];
+    $prdDescripcion = $_POST['prdDescripcion'];
+    $prdImagen = subirImagen();
+    $idProducto = $_POST['idProducto'];
+
+    $link = conectar();
+    try {
+        $sql = "UPDATE productos
+                    SET 
+                        prdNombre = '".$prdNombre."',
+                        prdPrecio = ".$prdPrecio.",
+                        idMarca = ".$idMarca.",
+                        idCategoria = ".$idCategoria.",
+                        prdDescripcion = '".$prdDescripcion."',
+                        prdImagen = '".$prdImagen."'
+                    WHERE idProducto = ".$idProducto;
+        $resultado = mysqli_query($link, $sql);
+        $_SESSION['mensaje'] = 'Producto: ' .$prdNombre. ' modificado correctamente';
+        $_SESSION['css'] = 'success';
+        // redireccion a panel adminMarcas con mensaje ok
+        header('location: adminProductos.php');
+        return $resultado;
+    }
+    catch( Exception $e ){
+        // log de errores  logErrores($e)
+        $_SESSION['mensaje'] = 'No se pudo modififcar producto' .$prdNombre;
+        $_SESSION['css'] = 'danger';
+        header('location: adminProductos.php');
+        return false;
+    }
 }
 
 /**
