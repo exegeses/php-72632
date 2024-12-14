@@ -148,6 +148,56 @@ function modificarProducto() : bool
     }
 }
 
+function borrarImagen()
+{
+    // Ruta del archivo que deseas eliminar
+    $directorio = 'productos/';
+    $nombreArchivo = "mi_imagen.jpg";
+    $rutaArchivo = $directorio . $nombreArchivo;
+
+// Verifica si el archivo existe
+    if (file_exists($rutaArchivo)) {
+        // Intenta eliminar el archivo
+        if (unlink($rutaArchivo)) {
+            echo "El archivo $nombreArchivo ha sido eliminado exitosamente.";
+        } else {
+            echo "Hubo un error al intentar eliminar el archivo $nombreArchivo.";
+        }
+    } else {
+        echo "El archivo $nombreArchivo no existe en el directorio $directorio.";
+    }
+}
+
+function eliminarProducto() : bool
+{
+    $idProducto = $_POST['idProducto'];
+    $prdNombre = $_POST['prdNombre'];
+    $link = conectar();
+    /* $sql = "DELETE FROM productos
+                WHERE idProducto = ".$idProducto; */
+    //borrarImagen();
+    try {
+        $sql = 'UPDATE productos
+                SET prdActivo = 0
+              WHERE idProducto = '.$idProducto;
+        $resultado = mysqli_query($link, $sql);
+
+        $_SESSION['mensaje'] = 'Producto: ' .$prdNombre. ' eliminado correctamente';
+        $_SESSION['css'] = 'success';
+        // redireccion a panel adminMarcas con mensaje ok
+        header('location: adminProductos.php');
+        return $resultado;
+    }
+    catch( Exception $e ){
+        // log de errores  logErrores($e)
+        $_SESSION['mensaje'] = 'No se pudo eliminar producto' .$prdNombre;
+        $_SESSION['css'] = 'danger';
+        header('location: adminProductos.php');
+        return false;
+    }
+    
+}
+
 /**
  * listarProductos()
  * verProductoPorID()
