@@ -195,7 +195,7 @@ function eliminarProducto() : bool
         header('location: adminProductos.php');
         return false;
     }
-    
+
 }
 
 /**
