@@ -28,6 +28,8 @@
                                    value="<?= $producto['idProducto'] ?>">
                             <input type="hidden" name="prdNombre"
                                    value="<?= $producto['prdNombre'] ?>">
+                            <input type="hidden" name="prdImagen"
+                                   value="<?= $producto['prdImagen'] ?>">
                             <button class="btn btn-danger my-3 px-4">Confirmar baja</button>
                             <a href="adminProductos.php" class="btn btn-outline-secondary sep">
                                 Volver a panel

@@ -24,7 +24,8 @@
                     JOIN marcas as m
                       ON p.idMarca = m.idMarca
                     JOIN categorias as c
-                      ON p.idCategoria = c.idCategoria;';
+                      ON p.idCategoria = c.idCategoria
+                    WHERE prdActivo = 1;';
         return mysqli_query($link, $sql);
     }
 
@@ -148,23 +149,18 @@ function modificarProducto() : bool
     }
 }
 
-function borrarImagen()
+function borrarImagen(): void
 {
-    // Ruta del archivo que deseas eliminar
-    $directorio = 'productos/';
-    $nombreArchivo = "mi_imagen.jpg";
+    $directorio = "productos/";
+    $nombreArchivo = $_POST['prdImagen'];
     $rutaArchivo = $directorio . $nombreArchivo;
+    if (
+        $rutaArchivo != 'productos/noDisponible.svg'
+            &&
+        file_exists($rutaArchivo)
+        ) {
+            unlink($rutaArchivo);
 
-// Verifica si el archivo existe
-    if (file_exists($rutaArchivo)) {
-        // Intenta eliminar el archivo
-        if (unlink($rutaArchivo)) {
-            echo "El archivo $nombreArchivo ha sido eliminado exitosamente.";
-        } else {
-            echo "Hubo un error al intentar eliminar el archivo $nombreArchivo.";
-        }
-    } else {
-        echo "El archivo $nombreArchivo no existe en el directorio $directorio.";
     }
 }
 
@@ -173,15 +169,14 @@ function eliminarProducto() : bool
     $idProducto = $_POST['idProducto'];
     $prdNombre = $_POST['prdNombre'];
     $link = conectar();
-    /* $sql = "DELETE FROM productos
-                WHERE idProducto = ".$idProducto; */
-    //borrarImagen();
     try {
         $sql = 'UPDATE productos
                 SET prdActivo = 0
               WHERE idProducto = '.$idProducto;
+        /* $sql = "DELETE FROM productos
+                    WHERE idProducto = ".$idProducto; */
         $resultado = mysqli_query($link, $sql);
-
+        // borrarImagen();
         $_SESSION['mensaje'] = 'Producto: ' .$prdNombre. ' eliminado correctamente';
         $_SESSION['css'] = 'success';
         // redireccion a panel adminMarcas con mensaje ok
