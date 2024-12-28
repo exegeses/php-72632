@@ -17,7 +17,7 @@
             <div class="text-end">
 
                 <a href="formLogin.php" class="btn btn-outline-light me-2">Login</a>
-                <a href="formAgregarUsuario.php" class="btn btn-warning">Registro</a>
+                <a href="formRegistrarUsuario.php" class="btn btn-warning">Registro</a>
 
                 <!-- si está logueado -->
                 <!-- si está logueado -->
