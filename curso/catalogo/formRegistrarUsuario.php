@@ -38,9 +38,9 @@
                            class='form-control' id="clave" required>
                 </div>
 
-                <button class='btn btn-dark my-3 px-4'>Registrar usuario</button>
-                <a href="adminUsuarios.php" class='btn btn-outline-secondary'>
-                    Volver a panel de usuarios
+                <button class='btn btn-warning my-3 px-4'>Registrar usuario</button>
+                <a href="formLogin.php" class='btn btn-outline-light'>
+                    Ingreso a sistema
                 </a>
             </form>
 
