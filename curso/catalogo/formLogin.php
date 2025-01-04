@@ -28,11 +28,16 @@
             </form>
         </div>
 
-<!--
+<?php
+        if( isset( $_GET['error'] ) ){
+            $mensaje = 'Nombre de usuario y/o clave incorrectas'
+?>
         <div class="alert alert-danger p-4 col-8 mx-auto shadow">
-            <?= 'mensaje' ?>
+            <?= $mensaje ?>
         </div>
--->
+<?php
+        }
+?>
 
     </main>
 
