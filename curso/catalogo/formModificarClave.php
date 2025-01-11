@@ -1,5 +1,5 @@
 <?php
-    //require 'config/config.php';
+    require 'config/config.php';
     include 'layouts/header.php';
     include 'layouts/nav.php';
 ?>
@@ -7,6 +7,9 @@
     <main class="container py-4">
         <h1>Cambio de contraseña</h1>
 
+<?php
+    include 'layouts/notificaciones.php';
+?>        
 
         <div class='alert p-4 col-8 mx-auto shadow'>
             <form action="modificarClave.php" method="post" class="validarForm">
@@ -43,11 +46,20 @@
             </form>
         </div>
 
+<?php
+    if( isset( $_GET['error'] ) ){
+        $mensaje =  match ( $_GET['error'] ){
+            '1' => 'La contraseña actual es incorrecta',
+            '2' => 'La contraseña nueva y la contraseña repetida no coinciden'
+        }
+    ?>
             <div class="alert alert-danger p-4 col-8 mx-auto shadow">
                 <i class="bi bi-info-circle fs-4 me-2"></i>
-                <?= 'mensaje' ?>
+                <?= $mensaje ?>
             </div>
-
+<?php
+    }
+?>
         <script>
             let form = document.querySelector('.validarForm');
             let clave = document.querySelector('#clave');

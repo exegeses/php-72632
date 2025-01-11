@@ -53,3 +53,50 @@
             return false;
         }
     }
+
+    /**
+     * Modificación de contraseña
+     */
+    function modificarClave()
+    {
+        $clave = $_POST['clave'];
+        $newClave = $_POST['newClave'];
+        $newClave2 = $_POST['newClave2'];
+
+        //Obtenemos clave encritada de la tabla usuarios
+        $claveHash = getClaveHash();
+        //Verificamos que la clave actual coincida con la clave enritada
+        if( !password_verify( $clave, $claveHash ) ){
+            $_SESSION['mensaje'] = 'Contraseña actual incorrecta';
+            $_SESSION['css'] = 'warning';
+            header('location: formModificarClave.php');
+            return;
+        }
+        // encriptamos nueva clave
+        $claveHash = password_hash($newClave, PASSWORD_DEFAULT);
+        $link = conectar();
+        $sql = "UPDATE usuarios
+                    SET clave = '".$claveHash."' 
+                    WHERE idUsuario = ".$_SESSION['idUsuario'];
+        try {
+            mysqli_query($link, $sql);
+            $_SESSION['mensaje'] = 'Contraseña modificada correctamente';
+            $_SESSION['css'] = 'success';
+            header('location: formModificarClave.php');
+        }
+        catch (Exception $e){
+            $_SESSION['mensaje'] = 'No se pudo modificar la contraseña';
+            $_SESSION['css'] = 'danger';
+            header('location: formModificarClave.php');
+        }
+    }
+    function getClaveHash() : string
+    {
+        $link = conectar();
+        $sql = "SELECT clave 
+                  FROM usuarios
+                  WHERE idUsuario = ".$_SESSION['idUsuario'];
+        $resultado = mysqli_query($link,$sql);
+        $datoUsuario = mysqli_fetch_assoc($resultado);
+        return $datoUsuario['clave'];
+    }
