@@ -8,10 +8,16 @@
                         <img src="imagenes/m-iso.jpg" id="m-logo" alt="logo">
                     </a>
                 </li>
+<?php
+        if( isset($_SESSION['login']) ){  
+?>               
                 <li><a href="adminMarcas.php" class="nav-link px-3 text-white a-menu">Marcas</a></li>
                 <li><a href="adminCategorias.php" class="nav-link px-3 text-white a-menu">Categorías</a></li>
                 <li><a href="adminProductos.php" class="nav-link px-3 text-white a-menu">Productos</a></li>
                 <li><a href="adminUsuarios.php" class="nav-link px-3 text-white a-menu">Usuarios</a></li>
+<?php
+        }
+?>                
             </ul>
 
             <div class="text-end">

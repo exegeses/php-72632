@@ -62,7 +62,11 @@
  * @return void
  */
     function auth() : void
-    {}
+    {
+        if( !isset($_SESSION['login']) ){
+            header('location: formLogin.php?error=2');
+        }
+    }
 
 /**
  * función para chequear que el usuario sea administrador

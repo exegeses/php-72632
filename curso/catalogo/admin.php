@@ -1,5 +1,7 @@
 <?php
     require 'config/config.php';
+    require 'funciones/auth.php';
+        auth();
     include 'layouts/header.php';
     include 'layouts/nav.php';
 ?>

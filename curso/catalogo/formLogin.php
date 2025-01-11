@@ -30,7 +30,11 @@
 
 <?php
         if( isset( $_GET['error'] ) ){
-            $mensaje = 'Nombre de usuario y/o clave incorrectas'
+            $mensaje =  match ( $_GET['error'] ){
+                '1' => 'Nombre de usuario y/o clave incorrectas',
+                '2' => 'Debe lograrse para ingresar a la aplicación',
+                '3' => 'Otro mensaje de error'
+            }
 ?>
         <div class="alert alert-danger p-4 col-8 mx-auto shadow">
             <?= $mensaje ?>
