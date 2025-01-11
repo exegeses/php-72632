@@ -70,7 +70,12 @@
 
 /**
  * función para chequear que el usuario sea administrador
+ * que no pueda ingresar si no tiene idRol = 1
  * @return void
  */
     function checkAdmin() : void
-    {}
+    {
+        if( $_SESSION['idRol'] != 1 ){
+            header('location: noAdmin.php');
+        }
+    }
